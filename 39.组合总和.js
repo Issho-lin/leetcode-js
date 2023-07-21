@@ -1,4 +1,13 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-10-12 11:08:15
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-10-13 17:44:40
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=39 lang=javascript
  *
  * [39] 组合总和

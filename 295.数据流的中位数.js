@@ -1,13 +1,20 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-11-01 15:07:44
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-11-01 15:53:56
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=295 lang=javascript
  *
  * [295] 数据流的中位数
  */
 
 // @lc code=start
-/**
- * initialize your data structure here.
- */
+
 var MedianFinder = function() {
     this.left = []
     this.right = []
@@ -22,13 +29,13 @@ MedianFinder.prototype.addNum = function(num) {
         this.left.push(num)
         this.left.sort((a, b) => a - b)
     } else {
-        this.right.push(num)
-        this.right.sort((a, b) => b - a)
+        this.right.unshift(num)
+        this.right.sort((a, b) => a - b)
     }
-    if (this.left.length - this.right.length > 1) {
-        this.right.push(this.left.pop())
-    } else if (this.right.length > this.left.length) {
-        this.left.push(this.right.pop())
+    if (this.right.length > this.left.length) {
+        this.left.push(this.right.shift())
+    } else if (this.left.length - this.right.length > 1) {
+        this.right.unshift(this.left.pop())
     }
 };
 
@@ -36,10 +43,11 @@ MedianFinder.prototype.addNum = function(num) {
  * @return {number}
  */
 MedianFinder.prototype.findMedian = function() {
-    if (this.left.length === this.right.length) {
-        return (this.left[this.left.length - 1] + this.right[this.right.length - 1]) / 2
+    if (this.left.length > this.right.length) {
+        return this.left[this.left.length - 1]
+    } else {
+        return (this.left[this.left.length - 1] + this.right[0]) / 2
     }
-    return this.left[this.left.length - 1]
 };
 
 /**

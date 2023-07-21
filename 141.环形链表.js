@@ -1,4 +1,13 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-10-21 11:48:00
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-10-21 11:50:40
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=141 lang=javascript
  *
  * [141] 环形链表
@@ -18,14 +27,15 @@
  * @return {boolean}
  */
 var hasCycle = function(head) {
-    if (!head) return false
-    let p = head
-    let q = head.next
-    while (q && q.next && p !== q) {
-        p = p.next
-        q = q.next.next
+    let p = head, q = head
+    while (p && p.next) {
+        p = p.next.next
+        q = q.next
+        if (p === q) {
+            return true
+        }
     }
-    return p == q
+    return false
 };
 // @lc code=end
 

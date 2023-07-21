@@ -1,4 +1,13 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-11-04 10:50:53
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-11-04 11:50:35
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=395 lang=javascript
  *
  * [395] 至少有 K 个重复字符的最长子串
@@ -10,46 +19,34 @@
  * @param {number} k
  * @return {number}
  */
- var longestSubstring = function(s, k) {
-    const n = s.length;
-    return dfs(s, 0, n - 1, k);
-}
-
-const dfs = (s, l, r, k) => {
-    const cnt = new Array(26).fill(0);
-    for (let i = l; i <= r; i++) {
-        cnt[s[i].charCodeAt() - 'a'.charCodeAt()]++;
+var longestSubstring = function(s, k) {
+    const countMap = new Map()
+    for (let i = 0; i < s.length; i++) {
+        countMap.set(s[i], (countMap.get(s[i]) || 0) + 1)
     }
-
-    let split = 0;
-    for (let i = 0; i < 26; i++) {
-        if (cnt[i] > 0 && cnt[i] < k) {
-            split = String.fromCharCode(i + 'a'.charCodeAt());
-            break;
+    // console.log('countMap', countMap)
+    const splits = []
+    for (let i = 0; i < s.length; i++) {
+        // console.log(s, '------', s[i], '----', countMap.get(s[i]), k, countMap.get(s[i]) < k)
+        if (countMap.get(s[i]) < k) {
+            // console.log('******')
+            splits.push(i)
         }
     }
-    if (split == 0) {
-        return r - l + 1;
+    splits.push(s.length)
+    // console.log('splits', splits)
+    if (splits.length === 1) {
+        return s.length
     }
-
-    let i = l;
-    let ret = 0;
-    while (i <= r) {
-        while (i <= r && s[i] === split) {
-            i++;
+    let pre = 0, ans = 0
+    for (const p of splits) {
+        let len = p - pre
+        if (len >= k) {
+            ans = Math.max(ans, longestSubstring(s.substr(pre, len), k))
         }
-        if (i > r) {
-            break;
-        }
-        let start = i;
-        while (i <= r && s[i] !== split) {
-            i++;
-        }
-
-        const length = dfs(s, start, i - 1, k);
-        ret = Math.max(ret, length);
+        pre = p + 1
     }
-    return ret;
+    return ans
 };
 // @lc code=end
 

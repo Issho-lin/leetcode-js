@@ -1,4 +1,13 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-10-11 17:13:01
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-10-13 16:48:59
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=25 lang=javascript
  *
  * [25] K 个一组翻转链表
@@ -18,10 +27,7 @@
  * @return {ListNode}
  */
 var reverseKGroup = function(head, k) {
-    if (!head) {
-        return null
-    }
-    let root = new ListNode(-1, head)
+    const root = new ListNode(-1, head)
     let pre = root
     while (pre) {
         let n = k
@@ -32,18 +38,15 @@ var reverseKGroup = function(head, k) {
     }
     return root.next
 };
-var reverse = function(head, n) {
-    let cur = head
-    let pre = null
-    let  p = head
-    let k = n
-    while (k--) {
+var reverse = function(head, k) {
+    let p = head, cur = head, pre = null, n = k
+    while (n--) {
         if (!p) {
             return head
         }
         p = p.next
     }
-    while (n--) {
+    while (k--) {
         [cur.next, pre, cur] = [pre, cur, cur.next]
     }
     head.next = cur

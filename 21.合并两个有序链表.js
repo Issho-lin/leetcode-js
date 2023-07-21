@@ -1,4 +1,13 @@
 /*
+ * @Author: linqibin
+ * @Date: 2022-10-11 10:15:06
+ * @LastEditors: linqibin
+ * @LastEditTime: 2022-10-13 15:48:00
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by 研发中心/金地楼宇, All Rights Reserved. 
+ */
+/*
  * @lc app=leetcode.cn id=21 lang=javascript
  *
  * [21] 合并两个有序链表
@@ -13,27 +22,26 @@
  * }
  */
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
+ * @param {ListNode} list1
+ * @param {ListNode} list2
  * @return {ListNode}
  */
-var mergeTwoLists = function(l1, l2) {
-    let head = new ListNode()
-    let p = head
-    let val = 0
-    while (l1 || l2) {
-        if (!l1) {
-            val = l2.val
-            l2 = l2.next
-        } else if (!l2) {
-            val = l1.val
-            l1 = l1.next
-        } else if (l1.val < l2.val) {
-            val = l1.val
-            l1 = l1.next
+var mergeTwoLists = function(list1, list2) {
+    const head = new ListNode(-1)
+    let p = head, val = 0
+    while (list1 || list2) {
+        if (!list1) {
+            val = list2.val
+            list2 = list2.next
+        } else if (!list2) {
+            val = list1.val
+            list1 = list1.next
+        } else if (list1.val < list2.val) {
+            val = list1.val
+            list1 = list1.next
         } else {
-            val = l2.val
-            l2 = l2.next
+            val = list2.val
+            list2 = list2.next
         }
         p.next = new ListNode(val)
         p = p.next
